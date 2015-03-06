@@ -99,6 +99,10 @@ class AmNavPlugin extends BasePlugin
             craft()->on('entries.deleteEntry', function(Event $event) {
                 craft()->amNav_page->deletePagesForEntry($event->params['entry']);
             });
+            // Update pages in a navigation if an Entry was moved in Structure
+            craft()->structures->onMoveElement = function(Event $event) {
+                craft()->amNav_page->updatePagesForEntry($event->params['element'], true);
+            };            
         }
     }
 
